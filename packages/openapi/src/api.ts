@@ -4174,6 +4174,29 @@ export interface components {
       /** @default  */
       name?: string;
     };
+    /**
+     * DocumentEventsNotification
+     * @description Broadcasts document events to the frontend.
+     *
+     *         Sent by the session or kernel when document structure changes.
+     *         The frontend applies these to update its local state.
+     *
+     *         Attributes:
+     *             events: List of document events to apply.
+     */
+    DocumentEventsNotification: {
+      events: (
+        | components["schemas"]["CellCreated"]
+        | components["schemas"]["CellDeleted"]
+        | components["schemas"]["CellMoved"]
+        | components["schemas"]["CellsReordered"]
+        | components["schemas"]["CodeChanged"]
+        | components["schemas"]["NameChanged"]
+        | components["schemas"]["ConfigChanged"]
+      )[];
+      /** @enum {unknown} */
+      op: "document-events";
+    };
     /** DocumentEventsRequest */
     DocumentEventsRequest: {
       events: (
@@ -4903,7 +4926,8 @@ export interface components {
         | components["schemas"]["CacheInfoNotification"]
         | components["schemas"]["FocusCellNotification"]
         | components["schemas"]["UpdateCellCodesNotification"]
-        | components["schemas"]["UpdateCellIdsNotification"];
+        | components["schemas"]["UpdateCellIdsNotification"]
+        | components["schemas"]["DocumentEventsNotification"];
     };
     /**
      * LanguageServersConfig
