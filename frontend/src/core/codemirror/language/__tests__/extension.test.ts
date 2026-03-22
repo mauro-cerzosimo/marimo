@@ -4,7 +4,7 @@
 import { EditorState } from "@codemirror/state";
 import { EditorView } from "@codemirror/view";
 import { afterEach, describe, expect, it } from "vitest";
-import type { CellId } from "@/core/cells/ids";
+import { cellId } from "@/__tests__/branded";
 import { DUCKDB_ENGINE } from "@/core/datasets/engines";
 import { OverridingHotkeyProvider } from "@/core/hotkeys/hotkeys";
 import { cellConfigExtension } from "../../config/extension";
@@ -37,7 +37,7 @@ function createState(content: string, selection?: { anchor: number }) {
     doc: content,
     extensions: [
       adaptiveLanguageConfiguration({
-        cellId: "cell1" as CellId,
+        cellId: cellId("cell1"),
         completionConfig: {
           copilot: false,
           activate_on_typing: true,
@@ -49,7 +49,7 @@ function createState(content: string, selection?: { anchor: number }) {
         placeholderType: "marimo-import",
       }),
       cellConfigExtension({
-        cellId: "cell1" as CellId,
+        cellId: cellId("cell1"),
         completionConfig: {
           copilot: false,
           activate_on_typing: true,
@@ -215,8 +215,7 @@ describe("switchLanguage", () => {
         "dataframeName": "_df",
         "engine": "${DUCKDB_ENGINE}",
         "quotePrefix": "f",
-        "showOutput": true,
-      }
+        "showOutput": true }
     `);
 
     // Check that the document was transformed correctly

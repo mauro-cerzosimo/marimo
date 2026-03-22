@@ -5,8 +5,9 @@ import { createStore } from "jotai";
 import { beforeEach, describe, expect, it } from "vitest";
 import { MockNotebook } from "@/__mocks__/notebook";
 import { notebookAtom } from "@/core/cells/cells";
-import { type CellId, CellId as CellIdClass } from "@/core/cells/ids";
+import { CellId as CellIdClass } from "@/core/cells/ids";
 import { ErrorContextProvider } from "../error";
+import { cellId } from "@/__tests__/branded";
 
 describe("ErrorContextProvider", () => {
   let provider: ErrorContextProvider;
@@ -126,10 +127,8 @@ describe("ErrorContextProvider", () => {
           "label": "@Errors",
           "section": {
             "name": "Error",
-            "rank": 1,
-          },
-          "type": "error",
-        }
+            "rank": 1 },
+          "type": "error" }
       `);
 
       // Test the info function
@@ -189,9 +188,7 @@ describe("ErrorContextProvider", () => {
           "label": "Error",
           "section": {
             "name": "Error",
-            "rank": 1,
-          },
-        }
+            "rank": 1 } }
       `);
     });
   });
@@ -214,8 +211,8 @@ describe("ErrorContextProvider", () => {
     });
 
     it("should format context for multiple error types", () => {
-      const cellId1 = "cell-1" as CellId;
-      const cellId2 = "cell-2" as CellId;
+      const cellId1 = cellId("cell-1");
+      const cellId2 = cellId("cell-2");
 
       createMockNotebookWithErrors([
         {

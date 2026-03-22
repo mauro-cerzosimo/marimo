@@ -8,7 +8,7 @@ import { PostgreSQL } from "@codemirror/lang-sql";
 import { EditorState, type Extension } from "@codemirror/state";
 import { DuckDBDialect } from "@marimo-team/codemirror-sql/dialects";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import type { CellId } from "@/core/cells/ids";
+import { cellId } from "@/__tests__/branded";
 import type {
   CompletionConfig,
   DiagnosticsConfig,
@@ -37,7 +37,7 @@ const adapter = new SQLLanguageAdapter();
 const TEST_ENGINE = "test_engine" as ConnectionName;
 
 const TEST_EXTENSION_ARGS = [
-  {} as CellId,
+  cellId("test"),
   {} as CompletionConfig,
   {} as HotkeyProvider,
   {} as PlaceholderType,
@@ -55,8 +55,7 @@ describe("SQLLanguageAdapter", () => {
           "dataframeName": "_df",
           "engine": "${DUCKDB_ENGINE}",
           "quotePrefix": "f",
-          "showOutput": true,
-        }
+          "showOutput": true }
       `);
     });
   });
@@ -759,57 +758,44 @@ describe("tablesCompletionSource", () => {
                 {
                   "info": [Function],
                   "label": "order_id",
-                  "type": "column",
-                },
+                  "type": "column" },
                 {
                   "info": [Function],
                   "label": "user_id",
-                  "type": "column",
-                },
+                  "type": "column" },
                 {
                   "info": [Function],
                   "label": "total",
-                  "type": "column",
-                },
+                  "type": "column" },
               ],
               "self": {
                 "info": [Function],
                 "label": "orders",
-                "type": "table",
-              },
-            },
+                "type": "table" } },
             "users": {
               "children": [
                 {
                   "info": [Function],
                   "label": "id",
-                  "type": "column",
-                },
+                  "type": "column" },
                 {
                   "info": [Function],
                   "label": "name",
-                  "type": "column",
-                },
+                  "type": "column" },
                 {
                   "info": [Function],
                   "label": "email",
-                  "type": "column",
-                },
+                  "type": "column" },
               ],
               "self": {
                 "info": [Function],
                 "label": "users",
-                "type": "table",
-              },
-            },
-          },
+                "type": "table" } } },
           "self": {
             "detail": "public",
             "info": [Function],
             "label": "public",
-            "type": "schema",
-          },
-        },
+            "type": "schema" } },
         "test_db": {
           "children": {
             "public": {
@@ -819,66 +805,49 @@ describe("tablesCompletionSource", () => {
                     {
                       "info": [Function],
                       "label": "order_id",
-                      "type": "column",
-                    },
+                      "type": "column" },
                     {
                       "info": [Function],
                       "label": "user_id",
-                      "type": "column",
-                    },
+                      "type": "column" },
                     {
                       "info": [Function],
                       "label": "total",
-                      "type": "column",
-                    },
+                      "type": "column" },
                   ],
                   "self": {
                     "info": [Function],
                     "label": "orders",
-                    "type": "table",
-                  },
-                },
+                    "type": "table" } },
                 "users": {
                   "children": [
                     {
                       "info": [Function],
                       "label": "id",
-                      "type": "column",
-                    },
+                      "type": "column" },
                     {
                       "info": [Function],
                       "label": "name",
-                      "type": "column",
-                    },
+                      "type": "column" },
                     {
                       "info": [Function],
                       "label": "email",
-                      "type": "column",
-                    },
+                      "type": "column" },
                   ],
                   "self": {
                     "info": [Function],
                     "label": "users",
-                    "type": "table",
-                  },
-                },
-              },
+                    "type": "table" } } },
               "self": {
                 "detail": "test_db.public",
                 "info": [Function],
                 "label": "public",
-                "type": "schema",
-              },
-            },
-          },
+                "type": "schema" } } },
           "self": {
             "detail": "test_db",
             "info": [Function],
             "label": "test_db",
-            "type": "database",
-          },
-        },
-      }
+            "type": "database" } } }
     `);
   });
 
@@ -969,31 +938,22 @@ describe("tablesCompletionSource", () => {
                     {
                       "info": [Function],
                       "label": "col1",
-                      "type": "column",
-                    },
+                      "type": "column" },
                   ],
                   "self": {
                     "info": [Function],
                     "label": "table1",
-                    "type": "table",
-                  },
-                },
-              },
+                    "type": "table" } } },
               "self": {
                 "detail": "db1.schema1",
                 "info": [Function],
                 "label": "schema1",
-                "type": "schema",
-              },
-            },
-          },
+                "type": "schema" } } },
           "self": {
             "detail": "db1",
             "info": [Function],
             "label": "db1",
-            "type": "database",
-          },
-        },
+            "type": "database" } },
         "db2": {
           "children": {
             "schema2": {
@@ -1003,32 +963,22 @@ describe("tablesCompletionSource", () => {
                     {
                       "info": [Function],
                       "label": "col2",
-                      "type": "column",
-                    },
+                      "type": "column" },
                   ],
                   "self": {
                     "info": [Function],
                     "label": "table2",
-                    "type": "table",
-                  },
-                },
-              },
+                    "type": "table" } } },
               "self": {
                 "detail": "db2.schema2",
                 "info": [Function],
                 "label": "schema2",
-                "type": "schema",
-              },
-            },
-          },
+                "type": "schema" } } },
           "self": {
             "detail": "db2",
             "info": [Function],
             "label": "db2",
-            "type": "database",
-          },
-        },
-      }
+            "type": "database" } } }
     `);
     expect(completionSource?.defaultTable).toBeUndefined();
   });
@@ -1170,23 +1120,17 @@ describe("tablesCompletionSource", () => {
                     {
                       "info": [Function],
                       "label": "col1",
-                      "type": "column",
-                    },
+                      "type": "column" },
                   ],
                   "self": {
                     "info": [Function],
                     "label": "table1",
-                    "type": "table",
-                  },
-                },
-              },
+                    "type": "table" } } },
               "self": {
                 "detail": "db1.schema1",
                 "info": [Function],
                 "label": "schema1",
-                "type": "schema",
-              },
-            },
+                "type": "schema" } },
             "schema2": {
               "children": {
                 "table2": {
@@ -1194,31 +1138,22 @@ describe("tablesCompletionSource", () => {
                     {
                       "info": [Function],
                       "label": "col2",
-                      "type": "column",
-                    },
+                      "type": "column" },
                   ],
                   "self": {
                     "info": [Function],
                     "label": "table2",
-                    "type": "table",
-                  },
-                },
-              },
+                    "type": "table" } } },
               "self": {
                 "detail": "db1.schema2",
                 "info": [Function],
                 "label": "schema2",
-                "type": "schema",
-              },
-            },
-          },
+                "type": "schema" } } },
           "self": {
             "detail": "db1",
             "info": [Function],
             "label": "db1",
-            "type": "database",
-          },
-        },
+            "type": "database" } },
         "db2": {
           "children": {
             "schema2": {
@@ -1228,31 +1163,22 @@ describe("tablesCompletionSource", () => {
                     {
                       "info": [Function],
                       "label": "col2",
-                      "type": "column",
-                    },
+                      "type": "column" },
                   ],
                   "self": {
                     "info": [Function],
                     "label": "table2",
-                    "type": "table",
-                  },
-                },
-              },
+                    "type": "table" } } },
               "self": {
                 "detail": "db2.schema2",
                 "info": [Function],
                 "label": "schema2",
-                "type": "schema",
-              },
-            },
-          },
+                "type": "schema" } } },
           "self": {
             "detail": "db2",
             "info": [Function],
             "label": "db2",
-            "type": "database",
-          },
-        },
+            "type": "database" } },
         "db3": {
           "children": {
             "schema2": {
@@ -1262,31 +1188,22 @@ describe("tablesCompletionSource", () => {
                     {
                       "info": [Function],
                       "label": "col2",
-                      "type": "column",
-                    },
+                      "type": "column" },
                   ],
                   "self": {
                     "info": [Function],
                     "label": "table2",
-                    "type": "table",
-                  },
-                },
-              },
+                    "type": "table" } } },
               "self": {
                 "detail": "db3.schema2",
                 "info": [Function],
                 "label": "schema2",
-                "type": "schema",
-              },
-            },
-          },
+                "type": "schema" } } },
           "self": {
             "detail": "db3",
             "info": [Function],
             "label": "db3",
-            "type": "database",
-          },
-        },
+            "type": "database" } },
         "schema1": {
           "children": {
             "table1": {
@@ -1294,23 +1211,17 @@ describe("tablesCompletionSource", () => {
                 {
                   "info": [Function],
                   "label": "col1",
-                  "type": "column",
-                },
+                  "type": "column" },
               ],
               "self": {
                 "info": [Function],
                 "label": "table1",
-                "type": "table",
-              },
-            },
-          },
+                "type": "table" } } },
           "self": {
             "detail": "schema1",
             "info": [Function],
             "label": "schema1",
-            "type": "schema",
-          },
-        },
+            "type": "schema" } },
         "schema2": {
           "children": {
             "table2": {
@@ -1318,24 +1229,17 @@ describe("tablesCompletionSource", () => {
                 {
                   "info": [Function],
                   "label": "col2",
-                  "type": "column",
-                },
+                  "type": "column" },
               ],
               "self": {
                 "info": [Function],
                 "label": "table2",
-                "type": "table",
-              },
-            },
-          },
+                "type": "table" } } },
           "self": {
             "detail": "schema2",
             "info": [Function],
             "label": "schema2",
-            "type": "schema",
-          },
-        },
-      }
+            "type": "schema" } } }
     `);
     expect(completionSource?.defaultTable).toBeUndefined();
     expect(completionSource?.defaultSchema).toBe("schema2");
@@ -1408,33 +1312,25 @@ describe("tablesCompletionSource", () => {
                 {
                   "info": [Function],
                   "label": "id",
-                  "type": "column",
-                },
+                  "type": "column" },
                 {
                   "info": [Function],
                   "label": "name",
-                  "type": "column",
-                },
+                  "type": "column" },
                 {
                   "info": [Function],
                   "label": "email",
-                  "type": "column",
-                },
+                  "type": "column" },
               ],
               "self": {
                 "info": [Function],
                 "label": "users",
-                "type": "table",
-              },
-            },
-          },
+                "type": "table" } } },
           "self": {
             "detail": "public",
             "info": [Function],
             "label": "public",
-            "type": "schema",
-          },
-        },
+            "type": "schema" } },
         "test_db": {
           "children": {
             "public": {
@@ -1444,42 +1340,30 @@ describe("tablesCompletionSource", () => {
                     {
                       "info": [Function],
                       "label": "id",
-                      "type": "column",
-                    },
+                      "type": "column" },
                     {
                       "info": [Function],
                       "label": "name",
-                      "type": "column",
-                    },
+                      "type": "column" },
                     {
                       "info": [Function],
                       "label": "email",
-                      "type": "column",
-                    },
+                      "type": "column" },
                   ],
                   "self": {
                     "info": [Function],
                     "label": "users",
-                    "type": "table",
-                  },
-                },
-              },
+                    "type": "table" } } },
               "self": {
                 "detail": "test_db.public",
                 "info": [Function],
                 "label": "public",
-                "type": "schema",
-              },
-            },
-          },
+                "type": "schema" } } },
           "self": {
             "detail": "test_db",
             "info": [Function],
             "label": "test_db",
-            "type": "database",
-          },
-        },
-      }
+            "type": "database" } } }
     `);
     expect(completionSource?.defaultTable).toBe("users");
     expect(completionSource?.defaultSchema).toBe("public");
@@ -1609,9 +1493,7 @@ describe("tablesCompletionSource", () => {
             "detail": "test_db",
             "info": [Function],
             "label": "test_db",
-            "type": "database",
-          },
-        },
+            "type": "database" } },
         "test_db2": {
           "children": {
             "orders": {
@@ -1619,38 +1501,28 @@ describe("tablesCompletionSource", () => {
                 {
                   "info": [Function],
                   "label": "order_id",
-                  "type": "column",
-                },
+                  "type": "column" },
               ],
               "self": {
                 "info": [Function],
                 "label": "orders",
-                "type": "table",
-              },
-            },
-          },
+                "type": "table" } } },
           "self": {
             "detail": "test_db2",
             "info": [Function],
             "label": "test_db2",
-            "type": "database",
-          },
-        },
+            "type": "database" } },
         "users": {
           "children": [
             {
               "info": [Function],
               "label": "id",
-              "type": "column",
-            },
+              "type": "column" },
           ],
           "self": {
             "info": [Function],
             "label": "users",
-            "type": "table",
-          },
-        },
-      }
+            "type": "table" } } }
     `);
   });
 
@@ -1794,7 +1666,7 @@ describe("tablesCompletionSource", () => {
           const state = createEditorState("SELECT * FROM u", {
             engine: TEST_ENGINE,
           });
-          const ctx = createCompletionContext(state, 15, "u", 14);
+          const ctx = createCompletionContext(state, 15, cellId("u"), 14);
 
           const adapter = new SQLLanguageAdapter();
           const extensions = adapter.getExtension(...TEST_EXTENSION_ARGS);
@@ -1985,20 +1857,16 @@ describe("tablesCompletionSource", () => {
             {
               "info": [Function],
               "label": "col1",
-              "type": "column",
-            },
+              "type": "column" },
             {
               "info": [Function],
               "label": "col2",
-              "type": "column",
-            },
+              "type": "column" },
           ],
           "self": {
             "info": [Function],
             "label": "dataset1",
-            "type": "table",
-          },
-        },
+            "type": "table" } },
         "test_db": {
           "children": {
             "test_schema": {
@@ -2008,31 +1876,22 @@ describe("tablesCompletionSource", () => {
                     {
                       "info": [Function],
                       "label": "col1",
-                      "type": "column",
-                    },
+                      "type": "column" },
                   ],
                   "self": {
                     "info": [Function],
                     "label": "dataset2",
-                    "type": "table",
-                  },
-                },
-              },
+                    "type": "table" } } },
               "self": {
                 "detail": "test_db.test_schema",
                 "info": [Function],
                 "label": "test_schema",
-                "type": "schema",
-              },
-            },
-          },
+                "type": "schema" } } },
           "self": {
             "detail": "test_db",
             "info": [Function],
             "label": "test_db",
-            "type": "database",
-          },
-        },
+            "type": "database" } },
         "test_schema": {
           "children": {
             "dataset2": {
@@ -2040,24 +1899,17 @@ describe("tablesCompletionSource", () => {
                 {
                   "info": [Function],
                   "label": "col1",
-                  "type": "column",
-                },
+                  "type": "column" },
               ],
               "self": {
                 "info": [Function],
                 "label": "dataset2",
-                "type": "table",
-              },
-            },
-          },
+                "type": "table" } } },
           "self": {
             "detail": "test_schema",
             "info": [Function],
             "label": "test_schema",
-            "type": "schema",
-          },
-        },
-      }
+            "type": "schema" } } }
     `);
   });
 
@@ -2079,31 +1931,22 @@ describe("tablesCompletionSource", () => {
                     {
                       "info": [Function],
                       "label": "col1",
-                      "type": "column",
-                    },
+                      "type": "column" },
                   ],
                   "self": {
                     "info": [Function],
                     "label": "dataset2",
-                    "type": "table",
-                  },
-                },
-              },
+                    "type": "table" } } },
               "self": {
                 "detail": "test_db.test_schema",
                 "info": [Function],
                 "label": "test_schema",
-                "type": "schema",
-              },
-            },
-          },
+                "type": "schema" } } },
           "self": {
             "detail": "test_db",
             "info": [Function],
             "label": "test_db",
-            "type": "database",
-          },
-        },
+            "type": "database" } },
         "test_schema": {
           "children": {
             "dataset2": {
@@ -2111,24 +1954,17 @@ describe("tablesCompletionSource", () => {
                 {
                   "info": [Function],
                   "label": "col1",
-                  "type": "column",
-                },
+                  "type": "column" },
               ],
               "self": {
                 "info": [Function],
                 "label": "dataset2",
-                "type": "table",
-              },
-            },
-          },
+                "type": "table" } } },
           "self": {
             "detail": "test_schema",
             "info": [Function],
             "label": "test_schema",
-            "type": "schema",
-          },
-        },
-      }
+            "type": "schema" } } }
     `);
 
     const newConnection: DataSourceConnection = {
@@ -2166,20 +2002,16 @@ describe("tablesCompletionSource", () => {
             {
               "info": [Function],
               "label": "col1",
-              "type": "column",
-            },
+              "type": "column" },
             {
               "info": [Function],
               "label": "col2",
-              "type": "column",
-            },
+              "type": "column" },
           ],
           "self": {
             "info": [Function],
             "label": "dataset1",
-            "type": "table",
-          },
-        },
+            "type": "table" } },
         "test_db": {
           "children": {
             "test_schema": {
@@ -2189,31 +2021,22 @@ describe("tablesCompletionSource", () => {
                     {
                       "info": [Function],
                       "label": "col1",
-                      "type": "column",
-                    },
+                      "type": "column" },
                   ],
                   "self": {
                     "info": [Function],
                     "label": "dataset2",
-                    "type": "table",
-                  },
-                },
-              },
+                    "type": "table" } } },
               "self": {
                 "detail": "test_db.test_schema",
                 "info": [Function],
                 "label": "test_schema",
-                "type": "schema",
-              },
-            },
-          },
+                "type": "schema" } } },
           "self": {
             "detail": "test_db",
             "info": [Function],
             "label": "test_db",
-            "type": "database",
-          },
-        },
+            "type": "database" } },
         "test_schema": {
           "children": {
             "dataset2": {
@@ -2221,24 +2044,17 @@ describe("tablesCompletionSource", () => {
                 {
                   "info": [Function],
                   "label": "col1",
-                  "type": "column",
-                },
+                  "type": "column" },
               ],
               "self": {
                 "info": [Function],
                 "label": "dataset2",
-                "type": "table",
-              },
-            },
-          },
+                "type": "table" } } },
           "self": {
             "detail": "test_schema",
             "info": [Function],
             "label": "test_schema",
-            "type": "schema",
-          },
-        },
-      }
+            "type": "schema" } } }
     `);
 
     const newTestDatasets = [
@@ -2261,20 +2077,16 @@ describe("tablesCompletionSource", () => {
             {
               "info": [Function],
               "label": "col1",
-              "type": "column",
-            },
+              "type": "column" },
             {
               "info": [Function],
               "label": "col2",
-              "type": "column",
-            },
+              "type": "column" },
           ],
           "self": {
             "info": [Function],
             "label": "dataset3",
-            "type": "table",
-          },
-        },
+            "type": "table" } },
         "test_db": {
           "children": {
             "test_schema": {
@@ -2284,31 +2096,22 @@ describe("tablesCompletionSource", () => {
                     {
                       "info": [Function],
                       "label": "col1",
-                      "type": "column",
-                    },
+                      "type": "column" },
                   ],
                   "self": {
                     "info": [Function],
                     "label": "dataset2",
-                    "type": "table",
-                  },
-                },
-              },
+                    "type": "table" } } },
               "self": {
                 "detail": "test_db.test_schema",
                 "info": [Function],
                 "label": "test_schema",
-                "type": "schema",
-              },
-            },
-          },
+                "type": "schema" } } },
           "self": {
             "detail": "test_db",
             "info": [Function],
             "label": "test_db",
-            "type": "database",
-          },
-        },
+            "type": "database" } },
         "test_schema": {
           "children": {
             "dataset2": {
@@ -2316,24 +2119,17 @@ describe("tablesCompletionSource", () => {
                 {
                   "info": [Function],
                   "label": "col1",
-                  "type": "column",
-                },
+                  "type": "column" },
               ],
               "self": {
                 "info": [Function],
                 "label": "dataset2",
-                "type": "table",
-              },
-            },
-          },
+                "type": "table" } } },
           "self": {
             "detail": "test_schema",
             "info": [Function],
             "label": "test_schema",
-            "type": "schema",
-          },
-        },
-      }
+            "type": "schema" } } }
     `);
   });
 });
