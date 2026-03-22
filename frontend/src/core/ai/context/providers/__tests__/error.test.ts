@@ -4,10 +4,10 @@
 import { createStore } from "jotai";
 import { beforeEach, describe, expect, it } from "vitest";
 import { MockNotebook } from "@/__mocks__/notebook";
+import { cellId } from "@/__tests__/branded";
 import { notebookAtom } from "@/core/cells/cells";
 import { CellId as CellIdClass } from "@/core/cells/ids";
 import { ErrorContextProvider } from "../error";
-import { cellId } from "@/__tests__/branded";
 
 describe("ErrorContextProvider", () => {
   let provider: ErrorContextProvider;
